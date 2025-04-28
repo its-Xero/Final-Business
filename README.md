@@ -1,7 +1,6 @@
 # UNO Game with GUI - Final Project
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Build Status](https://img.shields.io/github/actions/workflow/status/its-Xero/Final-Business/main.yml?branch=main)
 ![Version](https://img.shields.io/badge/version-1.0.0-green.svg)
 
 A final project demonstrating the capabilities of **UNO-Business**, a personalized library of java.swing.
