@@ -12,26 +12,32 @@ public class Game {
     }
 
     private List<Player> joueurs;
+    private Deck jeuDeCartes;
+    public List<Carte> cartesSurTable;
+    private boolean sensHoraire;
+    private int indexDuCurrentJoueur;
+    private int turnCount = 0;
 
-    public Deck getJeuDeCartes() {
-        return jeuDeCartes;
+    public int getTurnCount() {
+        return turnCount;
     }
 
-    private Deck jeuDeCartes;
+    public void incrementTurn() {
+        turnCount++;
+    }
+
 
     public List<Carte> getCartesSurTable() {
         return cartesSurTable;
     }
 
-    public List<Carte> cartesSurTable;
-    private boolean sensHoraire;
+    public Deck getJeuDeCartes() {
+        return jeuDeCartes;
+    }
 
     public int getIndexDuCurrentJoueur() {
         return indexDuCurrentJoueur;
     }
-
-    private int indexDuCurrentJoueur;
-
     // Constructeur
     public Game(List<Player> joueurs, Deck jeuDeCartes) {
         if (jeuDeCartes == null) {
@@ -51,11 +57,19 @@ public class Game {
             if (cartePiochee != null) {
                 joueur.addCard(cartePiochee);
                 System.out.println(joueur.getName() + " Tu viens de piocher la carte : " + cartePiochee);
+                incrementTurn();
             } else {
                 System.out.println("Le deck est vide !");
             }
         } else {
             System.out.println(joueur.getName() + " Sorry, tu as une carte valide, tu ne peux pas piocher !");
+        }
+    }
+
+    public void draw(Player joueur, int number) {
+        int i;
+        for (i = 0; i < number; i++){
+            joueur.addCard(jeuDeCartes.piocher());
         }
     }
 
@@ -123,6 +137,14 @@ public class Game {
         if (!cartesSurTable.isEmpty()) {
             System.out.println("Carte actuelle sur la table : " + cartesSurTable.get(0));
         }
+        if (sensHoraire) {
+            indexDuCurrentJoueur = (indexDuCurrentJoueur + 1) % joueurs.size();
+        } else {
+            indexDuCurrentJoueur = (indexDuCurrentJoueur - 1 + joueurs.size()) % joueurs.size();
+        }
+    }
+
+    public void skip() {
         if (sensHoraire) {
             indexDuCurrentJoueur = (indexDuCurrentJoueur + 1) % joueurs.size();
         } else {
@@ -256,9 +278,11 @@ public class Game {
             if (!aCarteValide(currentPlayer)) {
                 System.out.println("Vous ne pouvez pas jouer, vous devez piocher une carte.");
                 piocher(currentPlayer);
+                incrementTurn();
             } else {
                 // Correction de la condition qui utilisait incorrectement carteNotNormale
                 jouerCarte(currentPlayer);
+                incrementTurn();
             }
             
             NextPlayer();
