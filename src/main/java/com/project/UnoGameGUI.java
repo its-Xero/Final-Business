@@ -35,7 +35,7 @@ public class UnoGameGUI {
     private JDialog logDialog;
     private JTable logTable;
     private DefaultTableModel logTableModel;
-    private List<String> gameLogs = new ArrayList<>();
+    private final List<String> gameLogs = new ArrayList<>();
 
 
     public UnoGameGUI() {
@@ -45,17 +45,19 @@ public class UnoGameGUI {
     }
 
     private void initializeGame() {
-        // Get number of players using OptionPane
-        String input = ROptionPane.showUnoInputDialog(null, "Enter number of players (1-10):");
-        try {
-            numberOfPlayers = Integer.parseInt(input);
-            if (numberOfPlayers < 1 || numberOfPlayers > 10) {
-                ROptionPane.showUnoMessageDialog(null, "Invalid number of players. Exiting.");
-                System.exit(0);
+        // Repeat until a valid number of players is entered
+        while (true) {
+            String input = ROptionPane.showUnoInputDialog(null, "Enter number of players (2-6):");
+            try {
+                numberOfPlayers = Integer.parseInt(input);
+                if (numberOfPlayers >= 2 && numberOfPlayers <= 6) {
+                    break; // Valid input, exit loop
+                } else {
+                    ROptionPane.showUnoMessageDialog(null, "Please enter a number between 2 and 6.");
+                }
+            } catch (NumberFormatException e) {
+                ROptionPane.showUnoMessageDialog(null, "Invalid input. Please enter a number.");
             }
-        } catch (NumberFormatException e) {
-            ROptionPane.showUnoMessageDialog(null, "Invalid input. Exiting.");
-            System.exit(0);
         }
 
         // Create players
@@ -68,10 +70,12 @@ public class UnoGameGUI {
         game = new Game(players, deck);
     }
 
+
     private void initializeGUI() {
         // Create main frame
         frame = new SFrame("Uno Game");
         frame.setLayout(new BorderLayout(10, 10));
+        frame.setExtendedState(SFrame.MAXIMIZED_BOTH);
         initializeLoggingSystem();
 
         // Create central game board panel
