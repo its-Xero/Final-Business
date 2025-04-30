@@ -227,9 +227,7 @@ public class UnoGameGUI {
         logDialog.add(scrollPane);
 
         logButton = UButton.createBlueButton("Show Log");
-        logButton.addActionListener(_ -> {
-            logDialog.setVisible(!logDialog.isVisible());
-        });
+        logButton.addActionListener(_ -> logDialog.setVisible(!logDialog.isVisible()));
     }
 
 
