@@ -166,11 +166,6 @@ public class UnoGameGUI {
 
             // Create scroll pane for cards with improved styling
             IScrollPane scrollPane = new IScrollPane();
-            scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
-            scrollPane.setBorder(null);
-            scrollPane.setOpaque(true);
-            scrollPane.getViewport().setOpaque(true);
 
             // Create panel for cards
             playerCardsPanels[i] = new SPanel();
