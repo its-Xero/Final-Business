@@ -63,7 +63,7 @@ public class UnoGameGUI {
         // Create players
         players = new ArrayList<>();
         for (int i = 0; i < numberOfPlayers; i++) {
-            String playerName = "Player " + (i + 1); // Simple names for now
+            String playerName = "Player " + (i + 1); // Simple names for the players
             players.add(new Player(playerName));
         }
         deck = new Deck();
